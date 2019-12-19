@@ -1,0 +1,277 @@
+* {
+	box-sizing: border-box;
+}
+
+body{
+	padding: 5px;
+	background-color: #23282f;
+}
+
+#main-container{
+	width:334px;
+	height: 334px;
+	position: relative;
+	visibility: visible;
+	background-color: white;
+	margin: auto;
+	margin-top: 60px;
+	/* border-radius: 5%; */
+	/* box-shadow: 1px 1px 2px white; */
+}
+
+.bar-container{
+	/* width: 70%; */
+	height: auto;
+	top: -30px;
+	position: absolute;
+}
+
+.feedback-container{
+	text-align: center;
+	display: flex;
+	justify-content: center; /* align horizontal */
+	align-items: center; /* align vertical */
+	/* top:10%; */
+}
+
+.feedback-text{
+	font-size: 250%;
+	text-align: center;
+	color: green;
+}
+
+.feedback-extra{
+	font-size: 180%;
+	color: orange;
+	text-align: center;
+}
+
+.bar-text-big{
+	font-size: large;
+	text-align: center;
+	color: white;
+	font-weight: bold;
+}
+
+#progress {
+  width: 100%;
+  background-color: white;
+  /* box-shadow: 1px 1px 2px black; */
+}
+
+#bar {
+  width: 0%;
+  height: 30px;
+  background-color: green;
+}
+
+
+
+.dot {
+  height: 7%;
+  width: 7%;
+  background-color: grey;
+  border-radius: 50%;
+  position: absolute;
+  border: solid 1.5px black;
+}
+
+
+.start-button-inside{
+	border: 10px solid white;
+	border-radius: 50%;
+	width: 90px;
+	height: 90px;
+	position: relative;
+	margin: auto;
+	background-color: green;
+	color: white;
+	font-weight: bold;
+}
+
+.start-button-outside{
+	border-radius: 50%;
+	width: 100px;
+	height: 100px;
+	border: 10px solid black;
+	position: absolute;
+	left: -15px;
+	top: -15px;
+	text-align: center;
+/*
+	background-color: orange;
+*/
+	display: flex;
+	justify-content: center; /* align horizontal */
+	align-items: center; /* align vertical */
+	font-size: large;
+	box-shadow: 7px 7px 10px grey;
+}
+
+.start-button-container{
+	position: relative;
+	display: block;
+	margin: auto;
+}
+
+.centered-vertically {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+/* .control-box{ */
+	/* margin: 5px; */
+	/* padding: 5px; */
+	/* position:relative; */
+/* } */
+
+.number-button{
+	/* position: relative; */
+	width: 40px;
+	height: 40px;
+	border: 2px solid #ababab;
+	background-color: #222222;
+	border-radius: 50%;
+	margin: 7px;
+	color: white;
+	text-align: center;
+	box-shadow: 1px 1px 10px grey;
+	font-size: 150%;
+	font-weight: bold;
+	float: left;
+}
+
+.number-button:hover{
+	opacity: 0.8;
+}
+
+.num-pressed-correct{
+	border-color: green;
+	box-shadow: 1px 1px 10px green;
+}
+
+.num-pressed-wrong{
+	border-color: orange;
+	box-shadow: 1px 1px 10px blue;
+}
+
+.number-container{
+	position: absolute;
+	margin: 10px auto 10px auto;
+	padding: 12px 5px 12px 5px;
+	width: 100%;
+	top:96%;
+}
+
+.number-center {
+	float: right;
+	position: relative;
+	left: -50%; /* or right 50% */
+	text-align: left;
+}
+
+
+
+#serie-box{
+	position:relative;
+	top: 100%;
+}
+
+
+
+.input {
+	margin: 10px;
+	display: inline-block;
+	text-align: right;
+}
+
+.sidenav {
+	height: 100%; /* 100% Full-height */
+	width: 0; /* 0 width - change this with JavaScript */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Stay on top */
+	top: 0;
+	right: 0;
+	background-color: #111; /* Black*/
+	color: white;
+	overflow-x: hidden; /* Disable horizontal scroll */
+	padding-top: 50px; /* Place content 60px from the top */
+	transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+/* The navigation menu links */
+.sidenav a {
+	padding: 8px 8px 8px 8px;
+	text-decoration: none;
+	font-size: 25px;
+	color: #818181;
+	display: block;
+	transition: 0.3s;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+	position: absolute;
+	top: 0;
+	right: 8px;
+	font-size: 36px;
+	margin-left: 50px;
+}
+
+
+.off-canvas-icon{
+	float: right;
+	color: white;
+}
+
+.slidecontainer {
+  width: 100%; /* Width of the outside container */
+  margin: 10px;
+}
+
+/* The slider itself */
+.slider {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 70%; /* Full-width */
+  height: 8px; /* Specified height */
+  background: white; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 20px; /* Set a specific slider handle width */
+  height: 20px; /* Slider handle height */
+  background: orange; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  width: 20px; /* Set a specific slider handle width */
+  height: 20px; /* Slider handle height */
+  background: orange; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+
+
+@media screen and (max-height: 500px) {
+	.sidenav {padding-top: 15px;}
+	.sidenav a {font-size: 18px;}
+	#main-container {width: 280px; height: 280px;}
+	.number-button {margin: 5px; width: 35px; height: 35px; font-size: 135%;}
+	
+}

@@ -1,0 +1,1 @@
+let Manager = new manager();
