@@ -1,12 +1,9 @@
 function manager(){
 	this.initGraphics();
-    this.imageAmount = 0;  //wie viele bilder sind in einer serie zu sehen
-    this.minPoints = document.getElementById('min-point-amount').value;  //wieviele punkte sieht man mindestens auf einem bild
-    this.maxPoints = document.getElementById('max-point-amount').value;;  // wieviele maximal  
+	this.loadInputSettings();
     this.finishedImages = 0;  //wieviele bilder schongesehen
 	this.userGuess = null;
     this.pointAmount = null;
-	this.visibleTime = 1000; //time in miliseconds
 	this.timeToNextImage = 2000;
 	this.gameState = 'idle'; //idle, running, waiting
 	this.ageMode = 'child'; // children, adult, fun
@@ -14,22 +11,24 @@ function manager(){
 	this.timeBeforeInteraction = 5000;
 	this.startButtonState = 'idle'; //idle busy
 	this.graphics.updateNumberBoxes();
-
 }
 
-manager.prototype.startSeries = function(){
+
+	
+manager.prototype.resetSeriesSettings = function(){
 	this.loadInputSettings();
-	this.graphics.resetRound();
-	this.statistics.resetRoundStats(this.imageAmount);
+	this.graphics.resetSeries();
+	this.statistics.resetSeriesStats(this.imageAmount);
 	this.setGameState('waiting');
 	this.setStartButtonState('busy');
-	//this.readInputAgeMode(); 
 	this.finishedImages = 0;
-    this.imageAmount = parseInt(document.getElementById('series-image-amount').value);
-	this.minPoints = parseInt(document.getElementById('min-point-amount').value);
-    this.maxPoints = parseInt(document.getElementById('max-point-amount').value);
-	let self = this;
 	this.graphics.animateStartButton();
+}
+
+
+manager.prototype.startSeries = function(){
+	this.resetSeriesSettings();
+	let self = this;
 	setTimeout(function(){
 		self.setGameState('running');
 		self.processOneImage();
@@ -38,13 +37,21 @@ manager.prototype.startSeries = function(){
 
 manager.prototype.processOneImage = function(){
 	if(this.gameState == 'running'){
+		this.determinePointAmount();
 		this.graphics.clearImage();
-		this.pointAmount = this.getRandomInt(this.minPoints, this.maxPoints);
-		this.graphics.generatePoints(this.pointAmount);
+		this.graphics.generatePoints();
 		let self = this;
 		let timer = this.visibleTime;
-		setTimeout(function(){self.graphics.deletePoints()},timer);
+		setTimeout(function(){self.roundTimeOut()},timer);
 	}
+}
+
+manager.prototype.roundTimeOut = function(){
+	this.graphics.deletePoints();
+}
+
+manager.prototype.determinePointAmount = function(){
+	this.pointAmount = this.getRandomInt(this.minPoints, this.maxPoints);
 }
 
 
@@ -97,9 +104,8 @@ manager.prototype.resetGameState = function(){
 	this.setStartButtonState('idle');
 	this.setGameState('idle');;
 	this.imageAmount = 0;
-	this.graphics.unpressNumButton();
+	this.graphics.clearImage();
 	this.graphics.showStartButton();
-	this.graphics.clearFeedback();
 }
 
 manager.prototype.initGraphics = function(){
@@ -156,7 +162,7 @@ manager.prototype.setUserGuess = function(guess){
 
 manager.prototype.loadInputSettings = function(){
 	this.visibleTime = document.querySelector('#image-visible-time').value * 1000;
-	this.imageAmount = document.querySelector('#series-image-amount').value;
-	this.minPoints = document.querySelector('#min-point-amount').value;
-	this.maxPoints = document.querySelector('#max-point-amount').value;	
+	this.imageAmount = parseInt(document.querySelector('#series-image-amount').value);
+	this.minPoints = parseInt(document.querySelector('#min-point-amount').value);
+	this.maxPoints = parseInt(document.querySelector('#max-point-amount').value);
 }

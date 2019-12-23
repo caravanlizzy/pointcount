@@ -24,20 +24,21 @@ graphics.prototype.animateStartButton = function(){
 	let button = document.querySelector('.start-button-outside');
 	let buttonContainer = document.querySelector('.start-button-container');
 	this.setDisplayBlock(buttonContainer);
+	let timestep = 1000;
 	let self = this;
 	button.innerHTML = '3';
 	setTimeout(function(){
 		button.innerHTML = '2';
-	}, 1000);
+	}, timestep);
 	setTimeout(function(){
 		button.innerHTML = '1';
-	}, 2000);
+	}, timestep*2);
 	setTimeout(function(){
 		button.innerHTML = 'LOS';
-	}, 3000);
+	}, timestep*3);
 	setTimeout(function(){
 		self.hideStartButton();
-	}, 4000);
+	}, timestep*4);
 }
 
 
@@ -85,8 +86,11 @@ graphics.prototype.drawPoint = function(position, parent, color){
 }
 
 
-graphics.prototype.generatePoints = function(amount){
-    let parent = document.getElementById('main-container');
+
+
+graphics.prototype.generatePoints = function(){
+	let amount = this.manager.pointAmount;
+    let parent = document.getElementById('point-container');
     this.deletePoints();
 	let positions = this.createDistinctPositions(amount);
 	let color = this.drawNewColor();
@@ -96,7 +100,7 @@ graphics.prototype.generatePoints = function(amount){
 }
 
 graphics.prototype.deletePoints = function(){
-	let parent = document.getElementById('main-container');
+	let parent = document.getElementById('point-container');
 	document.querySelectorAll('.dot').forEach(e => e.remove());
 }
 
@@ -143,13 +147,11 @@ graphics.prototype.getDistance = function(p1, p2){ //returns distance of two poi
 /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
 graphics.prototype.openNav = function () {
   document.getElementById("mySidenav").style.width = "200px";
-  // document.getElementById("main").style.marginLeft = "250px";
 }
 
 /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
 graphics.prototype.closeNav = function() {
   document.getElementById("mySidenav").style.width = "0";
-  // document.getElementById("main").style.marginLeft = "0";
 } 
 
 graphics.prototype.drawNewColor = function(){
@@ -203,9 +205,8 @@ graphics.prototype.deleteAllNumberBoxes = function(){
 }
 
 graphics.prototype.updateProgressBar = function(width){
-	let bar = document.querySelector('#bar');
+	let bar = document.querySelector('#progress-current');
 	bar.style.width = width + '%';
-	bar.classList.add('bar-text-big');
 	if(width == 100){
 		bar.innerHTML = 'Stark! ' + Math.floor(this.manager.statistics.getCorrectsRoundPercentage()) + '% richtig.';
 	}
@@ -213,6 +214,7 @@ graphics.prototype.updateProgressBar = function(width){
 
 
 graphics.prototype.updateFeedback = function(sentence, correct, pointAmount){
+	this.showFeedbackDisplay();
 	let feedback = document.querySelector('#feedback');
 	feedback.classList.add('feedback-text');
 	feedback.innerHTML = sentence;
@@ -228,11 +230,12 @@ graphics.prototype.clearFeedback = function(){
 	document.querySelector('#feedback-extra').innerHTML = '';
 }
 
-graphics.prototype.resetRound = function(){
+graphics.prototype.resetSeries = function(){
 	// console.log(document.querySelector('#max-point-amount').value);
 	// this.manager.setMinPoints(document.querySelector('#min-point-amount').value);
 	// this.manager.setMaxPoints(document.querySelector('#max-point-amount').value);
-	document.querySelector('#bar').innerHTML = '';
+	document.querySelector('#progress-current').innerHTML = '';
+	this.hideFeedbackDisplay();
 	this.updateProgressBar(0);
 	this.clearFeedback();
 	this.unpressNumButton();
@@ -243,6 +246,42 @@ graphics.prototype.resetRound = function(){
 graphics.prototype.clearImage = function(){
 		this.unpressNumButton();
 		this.clearFeedback();
+		this.hideFeedbackDisplay();
+}
+
+graphics.prototype.moveTimeBar = function(maxTime){
+	let stepTime = maxTime*10;
+	let timeBar = document.querySelector('#time-current');
+	let self = this;
+	let id = setInterval(function(){
+		self.stepTimeBar(id);
+		}, stepTime);
+}
+
+graphics.prototype.stepTimeBar = function(intervalId){
+	let progressWidth = document.querySelector('#time-current').style.width;
+	let progress = progressWidth.substring(-1, progressWidth.length - 1);
+	if(progress == 100){
+		clearInterval(intervalId);
+	}
+	else{
+		progress++;
+		this.updateTimeBar(progress);
+	}
+}
+
+graphics.prototype.fillTimeBar = function(){
+	let progressWidth = document.querySelector('#time-current').style.width;
+	progressWidth = 100 + '%';
+}
+
+graphics.prototype.resetTimeBar = function(){
+	document.querySelector('#time-current').style.width = 0 + '%';
+}
+
+graphics.prototype.updateTimeBar = function(width){
+	let progress = document.querySelector('#time-current');
+	progress.style.width = width + '%';
 }
 
 
@@ -259,6 +298,21 @@ graphics.prototype.setStartButtonEvent = function(){
 		}
 	});
 }
+
+graphics.prototype.hideFeedbackDisplay = function(){
+	let e = document.querySelectorAll('.feedback-container');
+	for(let i = 0; i < e.length; i++){
+		e[i].style.display = 'none';
+	}
+}
+
+graphics.prototype.showFeedbackDisplay = function(){
+	let e = document.querySelectorAll('.feedback-container');
+	for(let i = 0; i < e.length; i++){
+		e[i].style.display = 'block';
+	}
+}
+
 
 graphics.prototype.activateSlider = function(){
 	var timeSlider = document.getElementById("image-visible-time");
@@ -278,7 +332,7 @@ graphics.prototype.activateSlider = function(){
 	
 	var timeSlider3 = document.getElementById("max-point-amount");
 	var timeOutput3 = document.getElementById("puma");
-	timeOutput3.innerHTML = timeSlider2.value; 
+	timeOutput3.innerHTML = timeSlider3.value; 
     timeSlider3.oninput = function() {
 		timeOutput3.innerHTML = this.value;
 	} 
@@ -324,6 +378,7 @@ graphics.prototype.initGraphics = function(){
 	this.activateMinPointsResponse();
 	this.activateMaxPointsResponse();
 	this.setStartButtonEvent();
+	this.hideFeedbackDisplay();
 	
 }
 

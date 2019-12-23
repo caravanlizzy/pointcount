@@ -21,7 +21,7 @@ statistics.prototype.getCorrectsRoundPercentage = function(){
 	return this.roundCorrect/this.roundTotal*100;
 }
 
-statistics.prototype.resetRoundStats = function(roundTotal){
+statistics.prototype.resetSeriesStats = function(roundTotal){
 	this.roundTotal = roundTotal;
 	this.roundCorrect = 0;
 }

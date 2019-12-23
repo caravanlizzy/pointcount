@@ -9,29 +9,76 @@ body{
 
 #main-container{
 	width:334px;
-	height: 334px;
+	height: 374px;
 	position: relative;
-	visibility: visible;
 	background-color: white;
 	margin: auto;
 	margin-top: 60px;
-	/* border-radius: 5%; */
-	/* box-shadow: 1px 1px 2px white; */
+/*
+	border: 3px solid green;	
+*/
+}
+
+#point-container{
+	position: relative;
+	width: 100%;
+	height: 334px;
 }
 
 .bar-container{
 	/* width: 70%; */
-	height: auto;
-	top: -30px;
-	position: absolute;
+	height: 30px;
+	position: relative;
+}
+
+
+
+.bar-text{
+	font-size: large;
+	text-align: center;
+	color: white;
+	font-weight: bold;
+}
+
+.progress-container{
+	position: relative;
+	height: 30px;
+	width: 100%;
+}
+
+#progress-max {
+	width: 100%;
+	background-color: white;
+  	height: 100%;
+	position: relative;
+	line-height: 30px;
+
+}
+
+#progress-current {
+  width: 0%;
+  height: 100%;
+  background-color: green;
+}
+
+#time-max {
+	height: 10px;
+	width: 100%;
+	background-color: white;
+	position: relative;
+
+}
+
+#time-current {
+  width: 0%;
+  height: 100%;
+  background-color: #23282f;
 }
 
 .feedback-container{
+	display: none;
+	padding: 25px;
 	text-align: center;
-	display: flex;
-	justify-content: center; /* align horizontal */
-	align-items: center; /* align vertical */
-	/* top:10%; */
 }
 
 .feedback-text{
@@ -42,27 +89,8 @@ body{
 
 .feedback-extra{
 	font-size: 180%;
-	color: orange;
+	color: blue;
 	text-align: center;
-}
-
-.bar-text-big{
-	font-size: large;
-	text-align: center;
-	color: white;
-	font-weight: bold;
-}
-
-#progress {
-  width: 100%;
-  background-color: white;
-  /* box-shadow: 1px 1px 2px black; */
-}
-
-#bar {
-  width: 0%;
-  height: 30px;
-  background-color: green;
 }
 
 
@@ -73,7 +101,13 @@ body{
   background-color: grey;
   border-radius: 50%;
   position: absolute;
-  border: solid 1.5px black;
+  border: solid 1px black;
+}
+
+.start-button-container{
+	position: relative;
+	display: block;
+	margin: auto;
 }
 
 
@@ -94,13 +128,10 @@ body{
 	width: 100px;
 	height: 100px;
 	border: 10px solid black;
-	position: absolute;
+	position: relative;
 	left: -15px;
 	top: -15px;
 	text-align: center;
-/*
-	background-color: orange;
-*/
 	display: flex;
 	justify-content: center; /* align horizontal */
 	align-items: center; /* align vertical */
@@ -108,11 +139,7 @@ body{
 	box-shadow: 7px 7px 10px grey;
 }
 
-.start-button-container{
-	position: relative;
-	display: block;
-	margin: auto;
-}
+
 
 .centered-vertically {
     position: relative;
@@ -120,12 +147,13 @@ body{
     transform: translateY(-50%);
 }
 
+.number-container{
+	position: relative;
+	margin: 10px auto 10px auto;
+	padding: 12px 5px 12px 5px;
+	width: 334px;
+}
 
-/* .control-box{ */
-	/* margin: 5px; */
-	/* padding: 5px; */
-	/* position:relative; */
-/* } */
 
 .number-button{
 	/* position: relative; */
@@ -135,10 +163,11 @@ body{
 	background-color: #222222;
 	border-radius: 50%;
 	margin: 7px;
+	padding: 6px;	
 	color: white;
 	text-align: center;
 	box-shadow: 1px 1px 10px grey;
-	font-size: 150%;
+	font-size: 130%;
 	font-weight: bold;
 	float: left;
 }
@@ -157,13 +186,7 @@ body{
 	box-shadow: 1px 1px 10px blue;
 }
 
-.number-container{
-	position: absolute;
-	margin: 10px auto 10px auto;
-	padding: 12px 5px 12px 5px;
-	width: 100%;
-	top:96%;
-}
+
 
 .number-center {
 	float: right;
@@ -253,25 +276,29 @@ body{
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none; /* Override default look */
   appearance: none;
-  width: 20px; /* Set a specific slider handle width */
-  height: 20px; /* Slider handle height */
+  width: 18px; /* Set a specific slider handle width */
+  height: 18px; /* Slider handle height */
   background: orange; /* Green background */
   cursor: pointer; /* Cursor on hover */
+  border-radius: 50%;
 }
 
 .slider::-moz-range-thumb {
-  width: 20px; /* Set a specific slider handle width */
-  height: 20px; /* Slider handle height */
+  width: 18px; /* Set a specific slider handle width */
+  height: 18px; /* Slider handle height */
   background: orange; /* Green background */
   cursor: pointer; /* Cursor on hover */
+  border-radius: 50%;
 }
 
 
 
-@media screen and (max-height: 500px) {
+@media screen and (max-height: 520px) {
 	.sidenav {padding-top: 15px;}
 	.sidenav a {font-size: 18px;}
-	#main-container {width: 280px; height: 280px;}
-	.number-button {margin: 5px; width: 35px; height: 35px; font-size: 135%;}
+	#main-container {width: 280px; height: 320px; margin-top: 30px;}
+	.number-button {margin: 5px; width: 33px; height: 33px; font-size: 120%; padding: 4px;}
+	.number-container {width: 280px; padding: 10px; margin: 0px auto 0px auto;}
+	#point-container {width: 100%; height: 280px;}
 	
 }
