@@ -169,8 +169,7 @@ graphics.prototype.createNumberBox = function(number, parent){
 	let manager = this.manager;
 	newBox.addEventListener('click', function(){
 		if(manager.gameState == 'running'){
-			newBox.classList.add('num-pressed-correct');
-			manager.setUserGuess(number);
+			manager.setUserGuess(number, this);
 			manager.processUserInput();
 			
 		}
@@ -192,6 +191,7 @@ graphics.prototype.unpressNumButton = function(){
 	let numContainer = document.querySelector('.number-container');
 	for(let i = 0; i < numContainer.children.length; i++){
 		numContainer.children[i].classList.remove('num-pressed-correct');	
+		numContainer.children[i].classList.remove('num-pressed-wrong');	
 	}
 }
 
@@ -219,10 +219,18 @@ graphics.prototype.updateFeedback = function(sentence, correct, pointAmount){
 	feedback.classList.add('feedback-text');
 	feedback.innerHTML = sentence;
 	if(correct == false){
+		this.setNumButtonClass('num-pressed-wrong');
 		let feedbackExtra = document.querySelector('#feedback-extra');
 		feedbackExtra.classList.add('feedback-extra');
 		feedbackExtra.innerHTML = 'Richtig waren: ' + pointAmount + ' Punkte.';
 	}
+	else{
+		this.setNumButtonClass('num-pressed-correct');
+	}
+}
+
+graphics.prototype.setNumButtonClass = function(className){
+	this.manager.getUserGuessElement().classList.add(className);
 }
 
 graphics.prototype.clearFeedback = function(){

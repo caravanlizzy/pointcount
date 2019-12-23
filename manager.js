@@ -81,6 +81,7 @@ manager.prototype.processUserInput = function(){
 
 
 
+
 manager.prototype.generateFeedbackWords = function(result){
 	let feedback = '';
 	let correct = '';
@@ -154,9 +155,17 @@ manager.prototype.getRandomInt = function(lowest, highest){
     return randInt;
 }
 
+manager.prototype.getUserGuess = function(){
+	return this.userGuess;
+}
 
-manager.prototype.setUserGuess = function(guess){
+manager.prototype.getUserGuessElement = function(){
+	return this.userGuessElement;
+}
+
+manager.prototype.setUserGuess = function(guess, e){
 	this.userGuess = guess;
+	this.userGuessElement = e;
 }
 
 
