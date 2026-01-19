@@ -1,1 +1,1 @@
-let Manager = new manager();
+const gameManager = new Manager();
